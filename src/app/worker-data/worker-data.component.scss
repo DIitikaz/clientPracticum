@@ -1,0 +1,35 @@
+
+.rowHover1:hover {
+    background-color: #f2f2f2; /* Slightly darker background color on hover */
+}
+
+.mat-icon-button {
+    display: none; /* Hide edit and delete buttons by default */
+}
+.rowHover1:hover .mat-icon-button {
+    display: inline-block; /* Display edit and delete buttons on row hover */
+}
+.rowHover1:hover {
+    background-color: #f2f2f2; /* Slightly darker background color on hover */
+}
+.rowHover1 {
+    transition: background-color 0.3s; /* Smooth transition for background color change */
+}
+button {
+    background-color: transparent; /* Set button background color to transparent */
+    border: none; /* Remove button border */
+    padding: 0; /* Remove button padding */
+
+}
+// .rowHover1:hover {
+//     background-color: #812c2c; /* Darker background color on hover */
+// }
+.mat-icon {
+    font-size: 20px; /* Adjust the size of the icons */
+    display: inline-block; /* Display the icon as an inline block */
+    width: 1em; /* Set the width to match the size of the icon */
+    height: 1em; /* Set the height to match the size of the icon */
+    vertical-align: middle; /* Center the icon vertically */
+    fill: currentColor; /* Use the current text color for the icon */
+}
+

@@ -1,0 +1,157 @@
+<!-- <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form" >
+   
+  
+    <mat-form-field>
+      <input matInput formControlName="firstName" placeholder="First Name">
+      <mat-error *ngIf="formGroup.get('firstName')?.hasError('required')">
+        First Name is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput formControlName="lastName" placeholder="Last Name">
+      <mat-error *ngIf="formGroup.get('lastName')?.hasError('required')">
+        Last Name is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" formControlName="start_of_work_date" placeholder="Start of Work Date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="formGroup.get('start_of_work_date')?.hasError('required')">
+        Start of Work Date is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>gender</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option *ngFor="let option of genderOptions" [value]="option.value">{{ option.label }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="formGroup.get('gender')?.hasError('required')">choose gender</mat-error>
+    </mat-form-field>
+  <div *ngIf="formGroup.get('roles') as roles">
+    <div *ngIf="formGroup.get('roles')?.value instanceof FormArray">
+       <div *ngFor="let control of roles.value; let i = index" class="role-container" [formGroupName]="i">
+    
+      <div class="role-box">
+        <mat-form-field class="role-field">
+          <mat-label>Role</mat-label>
+          <mat-select formControlName="roleNameId">
+            <mat-option *ngFor="let item of rolesName" value=item.id>{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field class="role-field">
+          <input matInput [matDatepicker]="picker" formControlName="date_of_entry_into_office" placeholder='date_of_entry_into_office'>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+       
+        </mat-form-field>
+      
+        <mat-checkbox class="role-field" formControlName="Managerial">Managerial</mat-checkbox>
+        
+        <button type="button" class="remove-button" (click)="removeRole(i)">Remove Role</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <button type="button" (click)="addRole()">Add Role</button>
+
+ 
+  
+    <button mat-raised-button color="primary" type="submit" >Submit</button>
+  </form> -->
+
+
+
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
+
+
+  <mat-form-field>
+    <input matInput formControlName="firstName" placeholder="First Name">
+    <mat-error *ngIf="formGroup.get('firstName')?.hasError('required')">
+      First Name is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="lastName" placeholder="Last Name">
+    <mat-error *ngIf="formGroup.get('lastName')?.hasError('required')">
+      Last Name is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" formControlName="start_of_work_date" placeholder="Start of Work Date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="formGroup.get('start_of_work_date')?.hasError('required')">
+      Start of Work Date is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>gender</mat-label>
+    <mat-select formControlName="gender">
+      <mat-option *ngFor="let option of genderOptions" [value]="option.value">{{ option.label }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="formGroup.get('gender')?.hasError('required')">choose gender</mat-error>
+  </mat-form-field>
+
+
+
+
+
+
+  <div formArrayName="roles">
+    <div *ngFor="let control of formGroup.get('roles').value  let i = index" class="role-container"
+      [formGroupName]="i">
+      <mat-form-field class="role-field">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="control.roleNameId">
+          <mat-option >{{control.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- <mat-form-field class="role-field">
+        <input matInput [matDatepicker]="picker" formControlName="date_of_entry_into_office"
+          placeholder='date_of_entry_into_office'>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+
+      </mat-form-field> -->
+
+      <mat-checkbox class="role-field" formControlName="control.Managerial">{{control.Managerial}}</mat-checkbox>
+</div>
+    <!-- <div class="role-box">
+      <mat-form-field class="role-field">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="roleNameId">
+          <mat-option *ngFor="let item of rolesName" value=item.id>{{item.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="role-field">
+        <input matInput [matDatepicker]="picker" formControlName="date_of_entry_into_office"
+          placeholder='date_of_entry_into_office'>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+
+      </mat-form-field>
+
+      <mat-checkbox class="role-field" formControlName="Managerial">Managerial</mat-checkbox> -->
+
+      <!-- <button type="button" class="remove-button" (click)="removeRole(i)">Remove Role</button> -->
+    <!-- </div>
+  </div> -->
+</div>
+
+  <button type="button" (click)="addRole()">Add Role</button>
+
+
+
+  <button mat-raised-button color="primary" type="submit">Submit</button>
+</form>

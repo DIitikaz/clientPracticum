@@ -1,0 +1,46 @@
+
+<button mat-raised-button (click)='addWorker()'color="primary">
+    <mat-icon>add</mat-icon>
+    Add Worker
+  </button>
+                
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">firstName</th>
+            <th scope="col">lastName</th>
+            <th scope="col">startWorkDate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let worker of workersDisplay; let i = index" class="rowHover1" (mouseenter)="showIcons(i)" (mouseleave)="hideIcons(i)">
+            <td>{{ worker.workerId }}</td>
+            <td>{{ worker.firstName }}</td>
+            <td>{{ worker.lastName }}</td>
+            <td>{{ worker.start_of_work_date }}</td>
+            <td>
+				<div class="button-container">
+                <button mat-icon-button *ngIf="isHovered[i]" (click)="editWorker(worker)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button *ngIf="isHovered[i]" (click)="deleteWorker(worker)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+			</div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between p-2">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+        (pageChange)="refreshWorkers()">
+    </ngb-pagination>
+
+    <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshWorkers()">
+        <option [ngValue]="2">2 items per page</option>
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="6">6 items per page</option>
+    </select>
+</div>
