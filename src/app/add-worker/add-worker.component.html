@@ -1,0 +1,89 @@
+
+<form [formGroup]="addWorkerForm" (ngSubmit)="onSubmit()" class="form">
+    <mat-form-field>
+        <input matInput formControlName="workerId" placeholder="Worker id">
+        <mat-error *ngIf="addWorkerForm.get('workerId')?.hasError('required')">
+          First Name is required
+        </mat-error>
+        <mat-error *ngIf="addWorkerForm.get('workerId')?.hasError('minlength')||addWorkerForm.get('workerId')?.hasError('maxlength')">
+         Worker Identity must be contain 9 characters
+        </mat-error>
+      </mat-form-field>
+    <mat-form-field>
+      <input matInput formControlName="firstName" placeholder="First Name">
+      <mat-error *ngIf="addWorkerForm.get('firstName')?.hasError('required')">
+        First Name is required
+      </mat-error>
+      <mat-error *ngIf="addWorkerForm.get('firstName')?.hasError('minlength')">
+        First Name must be at least 2 characters long
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+        <input matInput formControlName="lastName" placeholder="Last Name" minlength="2">
+        <mat-error *ngIf="addWorkerForm.get('lastName')?.hasError('required')">
+          Last Name is required
+        </mat-error>
+        <mat-error *ngIf="addWorkerForm.get('lastName')?.hasError('minlength')">
+          Last Name must be at least 2 characters long
+        </mat-error>
+      </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" formControlName="start_of_work_date" placeholder="Start of Work Date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="addWorkerForm.get('start_of_work_date')?.hasError('required')">
+        Start of Work Date is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option *ngFor="let option of genderOptions" [value]="option.value">{{ option.label }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="addWorkerForm.get('gender')?.hasError('required')">Choose gender</mat-error>
+    </mat-form-field>
+  
+    <div formArrayName="roles" class="role-container">
+      <div *ngFor="let roleGroup of roles.controls; let i = index" >
+        <div [formGroupName]="i">
+          <div class="role-box">
+            <div>
+              <mat-form-field class="role-field">
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="roleNameId">
+                  <mat-option *ngFor="let item of rolesName" [value]='item.id'>{{item.name}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="addWorkerForm.get('roles.' + i + '.roleNameId')?.hasError('required')">
+                  Role selection is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <mat-form-field class="role-field">
+              <input matInput [matDatepicker]="picker" formControlName="date_of_entry_into_office" placeholder='Date of Entry into Office'>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="addWorkerForm.get('roles.' + i)?.get('date_of_entry_into_office')?.hasError('dateAfterStart')">
+                Date of Entry cannot be before the Start of Work Date
+              </mat-error>
+              <mat-error *ngIf="addWorkerForm.get('roles.' + i)?.get('date_of_entry_into_office')?.hasError('required')">
+                Date of Entry is required
+              </mat-error>
+            </mat-form-field>
+            <div>
+              <mat-checkbox class="role-field" formControlName="Managerial" checked>Managerial</mat-checkbox>
+            </div>
+            <button mat-icon-button class="remove-button" (click)="removeRole(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <button mat-raised-button color="white" type="button" (click)="addRole()">Add Role</button>
+  
+    <button mat-raised-button color="primary" type="submit">Submit</button>
+  </form>

@@ -10,6 +10,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatIconModule} from '@angular/material/icon'
 import { identity } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AddWorkerComponent } from '../add-worker/add-worker.component';
 
 @Component({
     selector: 'app-worker-data',
@@ -37,7 +38,10 @@ export class WorkerDataComponent {
         });
     }
     addWorker(){
-        
+        const dialogRef = this.dialog.open(AddWorkerComponent,  {
+          width: '750px',height:'600px'
+         
+        }); 
     }
     deleteWorker(worker: Worker) {
        this.workerService.delateWorker(worker.workerId).subscribe({
